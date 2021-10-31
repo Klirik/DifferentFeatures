@@ -10,15 +10,13 @@ namespace Template.UI.Text
         [SerializeField] protected float typingDelay = 0.05f;
         protected string typingStr;
 
-#if UNITY_EDITOR
         protected void OnValidate()
         {
             if (!text)
                 text = GetComponent<TMP_Text>();
             if (!text) Debug.LogError("Cant find TMP_Text", this);
         }
-#endif
-
+        
         public virtual void Init(string str)
         {
             Reset();
