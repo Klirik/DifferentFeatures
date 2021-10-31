@@ -20,8 +20,6 @@ namespace Template.UI.Text
 
         public override void Launch()
         {
-            if (string.IsNullOrEmpty(typingStr)) return;
-
             StopCoroutine();
             coroutine = StartCoroutine(StartTypingText());
         }

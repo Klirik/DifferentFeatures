@@ -8,8 +8,8 @@ namespace Template.UI.Text
     {
         [SerializeField] protected TMP_Text text;
         [SerializeField] protected float typingDelay = 0.05f;
-        protected string typingStr;
 
+        
         protected void OnValidate()
         {
             if (!text)
@@ -20,27 +20,25 @@ namespace Template.UI.Text
         public virtual void Init(string str)
         {
             Reset();
-            typingStr = str;
+            text.text                 = str;
+            text.maxVisibleCharacters = 0;
         }
 
         public abstract void Launch();
 
-        public virtual void Break()
-        {            
-            text.text = typingStr;            
+        public virtual void Break() {
+            text.maxVisibleCharacters = int.MaxValue;         
         }
 
         protected virtual void Reset()
         {
-            text.text = string.Empty;
+            text.text                 = string.Empty;
+            text.maxVisibleCharacters = int.MaxValue;
         }
         protected IEnumerator StartTypingText()
         {
-            int charInd = 0;
-            while (text.text != typingStr)
-            {
-                text.text += typingStr[charInd];
-                charInd++;
+            while (text.maxVisibleCharacters != text.text.Length) {
+                text.maxVisibleCharacters++;
                 yield return new WaitForSeconds(typingDelay);
             }
             Break();

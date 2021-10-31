@@ -43,16 +43,13 @@ namespace Template.UniRx.UI.Text
 
         public override void Launch()
         {
-            if (string.IsNullOrEmpty(typingStr)) return;
-
             typingStream?.Dispose();
             typingStream = StartTypingText().ToObservable().Subscribe();
         }
         public override void Break()
         {
             typingStream?.Dispose();
-            text.text = typingStr;
-            
+            base.Break();
             onEnd?.OnNext(new Unit());
         }
 
